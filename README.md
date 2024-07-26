@@ -11,11 +11,13 @@ The Yu-Gi-Oh! Card Database has a free API which I will be utilizing as well.
 ## Strategy
 For the UI portion of testing I begin with the playwright codegen tool. I clicked each UI element which I perceived as relating to this project's scope. 
 
-This builds individual locators which I then clean up manually.
+This builds individual locators which I then clean up manually. I also find additional elements which I add manually.
 
-Secondary to the locators are our baseline test commands. Essentially just the result of taking the click action to generate locators. 
+Secondary to the locators are our baseline test commands. Essentially just the result of taking the click action to generate locators. I examine each of these structures to modify them for actual functionality. 
 
-I examine each of these structures to modify them for actual functionality. These pieces will be used to create tests easily from assembled commands.
+These will be used to create tests easily from assembled commands.
+
+Those tests will include both grid and panel view, with and without fuzzy search.
 
 After the UI portion has been completed, API will be automated as well to run tests in parralel to the UI testing. 
 

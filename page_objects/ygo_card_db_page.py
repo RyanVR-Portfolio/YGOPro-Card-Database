@@ -16,7 +16,7 @@ class YGOCardDBPage:
         self.searchbox = page.locator('input[type="search"][name="deckName"][placeholder="Search Yu-Gi-Oh! Cards..."]')
         # self.description_text = page.get_by_text("description/text")
         # self.halve_atk_text = page.get_by_text("*halve the atk")
-        self.use_description_text = page.get_by_text("Use * to give description/")
+        # self.use_description_text = page.get_by_text("Use * to give description/")
         self.fuzzy_search_toggle = page.locator('#fuzzySearch')
         self.fuzzy_search_label = page.locator('label[for="fuzzySearch"]')
 
@@ -34,6 +34,7 @@ class YGOCardDBPage:
         self.card_result_area = page.locator(f'div.item-area[title="{card_name}"]') # Variable unset for now. Thinking how to best handle it.
 
 #   Filter Panel Objects
+        self.filter_panel = page.locator("#toggleSearchFilters")
         self.filter_by_type = page.locator("#filter-type")
         self.filter_by_attr = page.locator("#filter-attribute")
         self.filter_by_race = page.locator("#filter-race")
@@ -75,20 +76,25 @@ class YGOCardDBPage:
         expect(self.searchbox).to_be_visible
         expect(self.searchbox).to_be_focused
 
-    def click_description_text(self):
-        self.description_text.click()
+    # def click_description_text(self):
+    #     self.description_text.click()
 
-    def click_halve_atk_text(self):
-        self.halve_atk_text.click()
+    # def click_halve_atk_text(self):
+    #     self.halve_atk_text.click()
 
-    def click_use_description_text(self):
-        self.use_description_text.click()
+    # def click_use_description_text(self):
+    #     self.use_description_text.click()
 
-    def click_fuzzy_search(self):
-        self.fuzzy_search.click()
+    def fuzzy_search_toggle(self):
+        expect(self.fuzzy_search_toggle).to_be_visible
+        expect(self.fuzzy_search_toggle).not_to_be_checked
+        self.fuzzy_search_toggle.click()
+        expect(self.fuzzy_search_toggle).to_be_checked
 
     def click_filter_button(self):
+        expect(self.filter_button).to_be_visible
         self.filter_button.click()
+        expect(self.filter_panel).to_be_visible
 
     def select_filter_limit(self, value: str):
         self.filter_limit.select_option(value)
@@ -101,12 +107,8 @@ class YGOCardDBPage:
 
     def click_prev_page(self):
         self.prev_page.click()
+        # intent to add page# decrease confirmation 
 
     def click_next_page(self):
         self.next_page.click()
-
-    def click_page_info(self):
-        self.page_info.click()
-
-    def click_api_area_results(self):
-        self.api_area_results.click()
+        # intent to add page# increase confirmation 
