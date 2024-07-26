@@ -1,6 +1,6 @@
 # page_objects/ygo_card_db_page.py
 
-from playwright.sync_api import Page
+from playwright.sync_api import *
 
 class YGOCardDBPage:
 
@@ -9,7 +9,7 @@ class YGOCardDBPage:
         self.url = "https://ygoprodeck.com/card-database/"
         self.heading = page.get_by_role("heading", name="Card Database")
         # self.home_link = page.get_by_role("link", name="Home")
-        # self.breadcrumb = page.get_by_label("breadcrumb").get_by_text("Card Database")
+        self.breadcrumb = page.get_by_label("breadcrumb").get_by_text("Card Database")
         
 #   Page Navigation Objects
 #       Search        
@@ -30,8 +30,8 @@ class YGOCardDBPage:
         self.prev_page = page.locator("#prevPage")
         self.next_page = page.locator("#nextPage")
         # self.page_info = page.get_by_text("Page 2/557 of 13,354 total").first # Needs to be split into page #/total and total individual results
-        self.api_area_results = page.locator("#api-area-results")
-        self.card_result_area = page.locator(f'div.item-area[title="{card_name}"]')
+        # self.api_area_results = page.locator("#api-area-results") # Realized YGO Pro has a free API. Look into combining that with the field for testing.
+        self.card_result_area = page.locator(f'div.item-area[title="{card_name}"]') # Variable unset for now. Thinking how to best handle it.
 
 #   Filter Panel Objects
         self.filter_by_type = page.locator("#filter-type")
@@ -55,20 +55,25 @@ class YGOCardDBPage:
         self.filter_sort_dir = page.locator("#filter-sort-direction")
         self.reset_filter = page.get_by_role("button", name="Reset Filters")
 
-    def open(self):
+    def open_dbhome(self):
         self.page.goto(self.url)
+        expect(self.page).to_have_url(self.url)
 
-    def click_heading(self):
-        self.heading.click()
+    def confirm_heading(self):
+        expect(self.heading).to_be_visible()
+        expect(self.heading).to_have_text(self.heading)
 
-    def click_home_link(self):
-        self.home_link.click()
+    # def click_home_link(self):
+    #     self.home_link.click()
 
-    def click_breadcrumb(self):
-        self.breadcrumb.click()
+    def confirm_breadcrumb(self):
+        expect(self.breadcrumb).to_be_visible()
+        expect(self.breadcrumb).to_have_text(self.breadcrumb)
 
-    def click_searchbox(self):
-        self.searchbox.click()
+    def enter_searchbox(self):
+        self.searchbox.focus()
+        expect(self.searchbox).to_be_visible
+        expect(self.searchbox).to_be_focused
 
     def click_description_text(self):
         self.description_text.click()
