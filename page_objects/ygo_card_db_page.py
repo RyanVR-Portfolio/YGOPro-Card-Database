@@ -11,20 +11,25 @@ class YGOCardDBPage:
         # self.home_link = page.get_by_role("link", name="Home")
         # self.breadcrumb = page.get_by_label("breadcrumb").get_by_text("Card Database")
         
-#   Page Navigation Objects        
-        self.searchbox = page.get_by_role("searchbox", name="Search Yu-Gi-Oh! Cards...")
-        self.description_text = page.get_by_text("description/text")
-        self.halve_atk_text = page.get_by_text("*halve the atk")
+#   Page Navigation Objects
+#       Search        
+        self.searchbox = page.locator('input[type="search"][name="deckName"][placeholder="Search Yu-Gi-Oh! Cards..."]')
+        # self.description_text = page.get_by_text("description/text")
+        # self.halve_atk_text = page.get_by_text("*halve the atk")
         self.use_description_text = page.get_by_text("Use * to give description/")
         self.fuzzy_search_toggle = page.locator('#fuzzySearch')
         self.fuzzy_search_label = page.locator('label[for="fuzzySearch"]')
+
+#       View Adjustments
         self.filter_button = page.locator('button[data-target="#toggleSearchFilters"]')
         self.filter_limit = page.locator("#filter-limit")
         self.grid_view = page.get_by_title("Grid View")
         self.list_view = page.get_by_title("List View")
+
+#       Results
         self.prev_page = page.locator("#prevPage")
         self.next_page = page.locator("#nextPage")
-        self.page_info = page.get_by_text("Page 2/557 of 13,354 total").first
+        # self.page_info = page.get_by_text("Page 2/557 of 13,354 total").first # Needs to be split into page #/total and total individual results
         self.api_area_results = page.locator("#api-area-results")
         self.card_result_area = page.locator(f'div.item-area[title="{card_name}"]')
 
